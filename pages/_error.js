@@ -14,6 +14,7 @@ function CustomError({ statusCode }) {
 }
 
 function getInitialProps({ res, err }) {
+	console.log('err', err)
 	let statusCode;
 	// If the res variable is defined it means nextjs
 	// is in server side

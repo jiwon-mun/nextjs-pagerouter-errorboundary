@@ -20,13 +20,31 @@ function Home() {
 				return (
 					<li key={user.id}>
 						<Link href={`/users/${user.id}`}>
-							<a>{user.name}</a>
+							{user.name}
 						</Link>
 					</li>
 				);
 			})}
 		</ul>
 	);
+}
+
+class MyFetchError extends Error {
+	constructor({statusCode, statusText}) {
+		
+		super(statusText)
+		this.name = 'MyFetchError'
+		this.statusCode = statusCode
+	}
+} 
+
+export const getServerSideProps = async (context) => {
+	const res = await fetch('http://localhost:3000/api/401')
+	if(!res.ok) {
+		throw new MyFetchError({statusCode: res.status, statusText: res.statusText})
+	}
+
+	return { props: {} }
 }
 
 export default Home;
